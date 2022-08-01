@@ -18,7 +18,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'business_logic/bloc/bloc_observer.dart';
 
-void main()async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -29,46 +29,42 @@ void main()async {
   printMessage('userId is: ${AppStrings.uId}');
 
   Bloc.observer = MyBlocObserver();
-  runApp( MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String widget;
-    if(AppStrings.uId !=null){
+    if (AppStrings.uId != null) {
       widget = 'home_layout';
-    }else{
+    } else {
       widget = '/';
     }
     return BlocProvider(
-      create: (BuildContext context) =>AppCubit()..getUser(),
-      child: BlocConsumer<AppCubit,AppState>(
-        listener: (context,state){
-
-        },
-        builder: (context,state){
-          return  MaterialApp(
-            debugShowCheckedModeBanner: false,
-            theme: ThemeData(
-              primarySwatch: Colors.blue,
-            ),
-            initialRoute: widget,
-            routes: {
-              '/' :(context)=>const SplashScreen(),
-              'home_layout':(context)=> const HomeLayout(),
-              'login':(context)=> LoginScreen(),
-              'register':(context)=>RegisterScreen(),
-              'profile':(context)=>const ProfileScreen(),
-              'edit_profile':(context)=>EditProfileScreen(),
-              'select_national':(context)=>SelectNational()
-
-            },
-          );
-        },
-      )
-    );
+        create: (BuildContext context) => AppCubit()
+          ..getUser()
+          ..getFanArea(),
+        child: BlocConsumer<AppCubit, AppState>(
+          listener: (context, state) {},
+          builder: (context, state) {
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              theme: ThemeData(
+                primarySwatch: Colors.blue,
+              ),
+              initialRoute: widget,
+              routes: {
+                '/': (context) => const SplashScreen(),
+                'home_layout': (context) => const HomeLayout(),
+                'login': (context) => LoginScreen(),
+                'register': (context) => RegisterScreen(),
+                'profile': (context) => const ProfileScreen(),
+                'edit_profile': (context) => EditProfileScreen(),
+                'select_national': (context) => SelectNational()
+              },
+            );
+          },
+        ));
   }
 }
-
-

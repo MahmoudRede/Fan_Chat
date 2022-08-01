@@ -16,71 +16,61 @@ class HomeLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List <Widget> screens=[
-
-      HomeScreen(pageHeight: MediaQuery.of(context).size.height,pageWidth:MediaQuery.of(context).size.width),
+    List<Widget> screens = [
+      HomeScreen(
+          pageHeight: MediaQuery.of(context).size.height,
+          pageWidth: MediaQuery.of(context).size.width),
       const MatchDetails(),
-      const FanScreen(),
+      FanScreen(),
       const ChatScreen(),
       const MoreScreen(),
-
     ];
-    return BlocConsumer<AppCubit,AppState>(
-        listener: (context,state){
-
-        },
-        builder: (context,state){
-          var cubit=AppCubit.get(context);
-          return Scaffold(
+    return BlocConsumer<AppCubit, AppState>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        var cubit = AppCubit.get(context);
+        return Scaffold(
             appBar: customAppbar(cubit.screensTitles[cubit.currentIndex]),
             body: screens[cubit.currentIndex],
-
-            bottomNavigationBar: BottomNavigationBar
-              (
-              type: BottomNavigationBarType.fixed,
-               currentIndex: cubit.currentIndex,
-                onTap: (value){
+            bottomNavigationBar: BottomNavigationBar(
+                type: BottomNavigationBarType.fixed,
+                currentIndex: cubit.currentIndex,
+                onTap: (value) {
                   cubit.navigateScreen(value);
                 },
                 elevation: 5,
-
                 items: [
                   BottomNavigationBarItem(
-                      icon: Icon(Icons.home,color: Colors.grey.shade600),
-                      activeIcon:Icon(Icons.home,color: AppColors.primaryColor),
-                      label: '',
-
+                    icon: Icon(Icons.home, color: Colors.grey.shade600),
+                    activeIcon: Icon(Icons.home, color: AppColors.primaryColor),
+                    label: '',
                   ),
                   BottomNavigationBarItem(
-                    icon: Icon(Icons.timer_outlined,color:Colors.grey.shade600),
-                      activeIcon:Icon(Icons.timer_outlined,color: AppColors.primaryColor),
-                      label: ''
+                      icon: Icon(Icons.timer_outlined,
+                          color: Colors.grey.shade600),
+                      activeIcon: Icon(Icons.timer_outlined,
+                          color: AppColors.primaryColor),
+                      label: ''),
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.people, color: Colors.grey.shade600),
+                      activeIcon:
+                          Icon(Icons.people, color: AppColors.primaryColor),
+                      label: ''),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.chat, color: Colors.grey.shade600),
+                    label: '',
+                    activeIcon: Icon(Icons.chat, color: AppColors.primaryColor),
                   ),
                   BottomNavigationBarItem(
-                    icon: Icon(Icons.people,color: Colors.grey.shade600),
-                      activeIcon:Icon(Icons.people,color: AppColors.primaryColor),
-
-                      label: ''
+                    icon: Icon(
+                      Icons.menu,
+                      color: Colors.grey.shade600,
+                    ),
+                    label: '',
+                    activeIcon: Icon(Icons.menu, color: AppColors.primaryColor),
                   ),
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.chat,color: Colors.grey.shade600),
-                      label: '',
-                    activeIcon:Icon(Icons.chat,color: AppColors.primaryColor),
-
-                  ),
-                  BottomNavigationBarItem(
-                      icon: Icon(Icons.menu,color: Colors.grey.shade600,),
-                      label: '',
-                    activeIcon:Icon(Icons.menu,color: AppColors.primaryColor),
-
-
-                  ),
-
-                ]
-            )
-
-          );
-        },
+                ]));
+      },
     );
   }
 }
